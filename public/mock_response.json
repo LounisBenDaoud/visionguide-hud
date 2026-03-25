@@ -1,0 +1,25 @@
+{
+  "id": "diag-001",
+  "timestamp": "2026-03-25T14:30:00Z",
+  "faultType": "BEARING WEAR - STAGE 2",
+  "severity": 72,
+  "confidence": 94,
+  "steps": [
+    "Isolate power to affected machinery",
+    "Remove protective housing (4x M8 bolts)",
+    "Inspect bearing race for scoring",
+    "Replace bearing unit (SKF 6205-2RS)",
+    "Apply lithium grease, reassemble"
+  ],
+  "bounds": {
+    "x": 35,
+    "y": 25,
+    "width": 30,
+    "height": 35
+  },
+  "thermalHotspot": {
+    "x": 50,
+    "y": 42,
+    "radius": 18
+  }
+}
