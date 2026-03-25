@@ -1,35 +1,104 @@
-# VisionGuide AI - AR Diagnostic HUD
+# VisionGuide AI - Expert Mechanic
 
-A futuristic "Iron Man style" Heads-Up Display (HUD) interface for AR-based machine diagnostics. Built for hackathons - this is the frontend component that simulates augmented reality diagnostics with live camera feed, thermal imaging, and AI-powered repair guidance.
+A futuristic "Iron Man style" Heads-Up Display (HUD) interface for AR-based machine diagnostics using Google Gemini AI. This full-stack project combines a React frontend with a FastAPI backend for real-time diagnostic analysis.
 
-## What It Does
+## 🎯 Project Overview
 
-VisionGuide AI transforms any device with a camera into a smart diagnostic tool:
+VisionGuide AI transforms any device with a camera into a smart diagnostic tool for industrial equipment:
 
-- **Live Camera Feed** - Full-screen webcam integration using WebRTC
+- **Live Camera Feed** - Full-screen webcam integration with real-time capture
+- **AI-Powered Analysis** - Google Gemini 2.5 Flash analyzes images for faults
 - **Scanning Animation** - Futuristic horizontal scan line effect
-- **Diagnostic Panel** - Displays AI-detected faults, severity levels, and step-by-step repair instructions
-- **AR Target Box** - Highlights the fault location with a glowing bounding box
+- **Diagnostic Panel** - Displays detected issues, severity levels, and step-by-step repair instructions
+- **AR Target Box** - Highlights fault locations with glowing bounding boxes
 - **Thermal View** - Simulated thermal imaging with heat bloom effects
-- **Mock Data Support** - Demo-ready with instant mock responses (no backend required)
+- **Mock Data Support** - Demo mode available without backend requirements
 
-## Tech Stack
+## 📋 Project Structure
 
-- **Vite** - Lightning-fast dev server
-- **React** - Component-based UI
+```
+Expert Mechanic/
+├── backend/                    # FastAPI server with Gemini integration
+│   ├── main.py                # API endpoints and AI inference
+│   ├── requirements.txt        # Python dependencies
+│   ├── test_brain.py          # Gemini AI testing utilities
+│   └── README.md              # Backend documentation
+│
+├── visionguide-hud/           # React + Vite frontend
+│   ├── src/
+│   │   ├── components/        # React UI components
+│   │   ├── hooks/             # Custom React hooks
+│   │   ├── data/              # Mock data for testing
+│   │   └── api/               # API client
+│   ├── package.json
+│   └── README.md              # Frontend documentation
+│
+└── README.md                  # This file
+```
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- **Vite** - Lightning-fast build tool and dev server
+- **React** - Component-based UI framework
 - **Tailwind CSS v4** - Utility-first styling with custom HUD theme
 
-## Quick Start
+**Backend:**
+- **FastAPI** - Modern, fast Python web framework
+- **Google Gemini 2.5 Flash** - Multi-modal AI for image analysis
+- **Uvicorn** - ASGI server
 
-### Prerequisites
-- Node.js 18+
-- A device with a webcam
-- Chrome or Edge browser (required for camera access)
+## 📦 Prerequisites
 
-### Installation
+Before starting, ensure you have:
+
+- **Node.js 18+** - [Download](https://nodejs.org/)
+- **Python 3.8+** - [Download](https://www.python.org/)
+- **Git** - [Download](https://git-scm.com/)
+- **Google API Key** - For Gemini AI access
+- **Webcam** - Chrome or Edge browser required for camera access
+
+## 🚀 Quick Start
+
+### Step 1: Clone or Setup
 
 ```bash
-# Clone or navigate to the project
+cd Expert\ Mechanic
+```
+
+### Step 2: Setup Backend
+
+```bash
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+.\venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set your Gemini API key
+# Windows (PowerShell):
+$env:GOOGLE_API_KEY="your-api-key-here"
+# Mac/Linux:
+export GOOGLE_API_KEY="your-api-key-here"
+
+# Start the server
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+The backend will be available at `http://localhost:8000`
+- API docs: `http://localhost:8000/docs`
+
+### Step 3: Setup Frontend (In a new terminal)
+
+```bash
 cd visionguide-hud
 
 # Install dependencies
@@ -39,13 +108,142 @@ npm install
 npm run dev
 ```
 
-### Open in Browser
+The frontend will be available at `http://localhost:5173`
 
-Navigate to `http://localhost:5173` (or the port shown in terminal)
+### Step 4: Access the Application
 
-**Important:** Allow camera permissions when prompted.
+1. Open your browser to `http://localhost:5173`
+2. **Allow camera permissions** when prompted
+3. The app will connect to your backend at `http://localhost:8000`
 
-## How to Use
+## 🎮 How to Use
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `M` | Trigger mock diagnostic data (instant demo, no backend needed) |
+| `T` | Toggle thermal view on/off |
+| `CAPTURE` | Analyze current camera view using AI backend |
+
+### UI Controls
+
+- **CAPTURE** - Sends camera frame to AI for analysis
+- **THERMAL ON/OFF** - Toggle thermal imaging effect
+- **MOCK** - Use mock response data for testing
+
+### Demo Workflow
+
+1. Allow camera access when prompted
+2. Point camera at an object
+3. Press `M` or click **CAPTURE** to analyze
+4. View the diagnostic results:
+   - Fault description in left panel
+   - Target box highlighting the issue
+   - Repair instructions below
+5. Press `T` to see thermal view
+6. Press `M` repeatedly to see different mock scenarios
+
+## 🔌 API Endpoints
+
+### Backend (FastAPI)
+
+- `GET /` - Health check
+- `POST /analyze` - Analyze image for faults
+  - Accepts base64-encoded image
+  - Returns diagnostic data with AI analysis
+- `GET /docs` - Interactive API documentation (Swagger UI)
+
+## 🧪 Testing
+
+### Test Mock Data
+
+Press `M` key to load mock diagnostic data without needing a backend.
+
+### Test Backend Connection
+
+Visit `http://localhost:8000/docs` to test API endpoints directly from Swagger UI.
+
+## 🐛 Troubleshooting
+
+### Camera Not Working
+
+- Ensure you're using **Chrome, Edge, or Safari** (Firefox has WebRTC limitations)
+- Check browser camera permissions in settings
+- Reload the page if permissions were denied initially
+
+### Backend Connection Errors
+
+If you see "Cannot connect to server" in the console:
+
+1. Verify backend is running: `http://localhost:8000` should load
+2. Check CORS settings in `backend/main.py`
+3. Ensure frontend API URL matches backend port
+4. Check firewall settings
+
+### API Key Issues
+
+If you get Gemini API errors:
+
+1. Verify API key is set: `echo $GOOGLE_API_KEY` (Mac/Linux) or `$env:GOOGLE_API_KEY` (Windows)
+2. Ensure API key is valid and has necessary permissions
+3. Check Gemini API quota in Google Cloud Console
+
+### Port Already in Use
+
+```bash
+# Kill process using port 8000 (backend)
+lsof -ti:8000 | xargs kill -9  # Mac/Linux
+netstat -ano | findstr :8000   # Windows - find PID then taskkill /PID xxx
+
+# Kill process using port 5173 (frontend)
+lsof -ti:5173 | xargs kill -9  # Mac/Linux
+```
+
+## 🌐 Deployment
+
+### Using ngrok for Remote Access
+
+To expose your local server to the internet:
+
+```bash
+# Install ngrok: https://ngrok.com/
+
+# Expose backend
+ngrok http 8000
+
+# Expose frontend
+ngrok http 5173
+```
+
+### Using Cloudflare Tunnel
+
+```bash
+# Install cloudflared: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+
+cloudflared tunnel --url http://localhost:5173
+cloudflared tunnel --url http://localhost:8000
+```
+
+## 📚 Documentation
+
+- **Frontend Details** - See [visionguide-hud/README.md](visionguide-hud/README.md)
+- **Backend Details** - See [backend/README.md](backend/README.md)
+
+## 🤝 Contributing
+
+1. Create a feature branch: `git checkout -b feature/your-feature`
+2. Make your changes and test locally
+3. Commit and push: `git commit -am "Add feature"` → `git push origin feature/your-feature`
+4. Open a pull request
+
+## 📝 Notes
+
+- **Mock Mode** - The app works without a backend! Press `M` for instant mock data
+- **CORS** - Frontend and backend must run on localhost for development
+- **Browser Support** - Requires modern browser with WebRTC support (Chrome, Edge 79+, Safari 11+)
+
+## 🎓 How to Use
 
 ### Keyboard Shortcuts
 
